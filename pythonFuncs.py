@@ -18,7 +18,7 @@ def correct_myfile(old_survey_path):
 
     # print our array.
     for line in good_lines:
-        print(line)
+        print(line[:-1])
 
 
 # Checks If the line is good.
