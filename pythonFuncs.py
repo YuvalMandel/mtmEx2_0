@@ -107,7 +107,7 @@ def scan_survey(survey_path):
 
         line_char_params = line.split()
 
-        id = line_char_params[0]
+        id = int(line_char_params[0])
 
         age = int(line_char_params[2])
 
