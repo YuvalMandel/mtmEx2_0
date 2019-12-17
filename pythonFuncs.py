@@ -109,12 +109,16 @@ def scan_survey(survey_path):
 
         print("line char params:", line_char_params)
 
+        scores = [int(i) for i in line_char_params[4:8]]
+
+        print("scores", scores)
+
         SurveyAddPerson(Survey,
                         line_char_params[0],
                         line_char_params[2],
                         line_char_params[3],
                         line_char_params[1],
-                        line_char_params[4:8])
+                        scores)
 
     return Survey
 
