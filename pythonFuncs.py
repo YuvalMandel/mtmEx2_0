@@ -24,7 +24,7 @@ def check_good_line(line):
 
     line_char_params = line.split()
 
-    scores = line_char_params[4:8]
+    scores = line_char_params[4:]
 
     id = line_char_params[0]
 
@@ -107,17 +107,30 @@ def scan_survey(survey_path):
 
         line_char_params = line.split()
 
+        id = line_char_params[0]
+
+        age = int(line_char_params[2])
+
         print("line char params:", line_char_params)
 
-        scores = [int(i) for i in line_char_params[4:8]]
+        scores = [int(i) for i in line_char_params[4:]]
+
+        gender = True if line_char_params[3] == "Man" else False
+
+        if line_char_params[1] == "Vegan":
+            eating_habits = 0
+        elif line_char_params[1] == "Vegaterian":
+            eating_habits = 1
+        else:
+            eating_habits = 2
 
         print("scores", scores)
 
         SurveyAddPerson(Survey,
-                        line_char_params[0],
-                        line_char_params[2],
-                        line_char_params[3],
-                        line_char_params[1],
+                        id,
+                        age,
+                        gender,
+                        eating_habits,
                         scores)
 
     return Survey
