@@ -100,8 +100,10 @@ def scan_survey(survey_path):
 
     Survey = SurveyCreateSurvey()
 
+    survey_file = open(survey_path, "r")
+
     # Go through each line.
-    for line in survey_path:
+    for line in survey_file:
 
         line_char_params = line.split()
 
