@@ -96,7 +96,7 @@ def add_line_to_array(line_array, line):
 # survey_path: The path to the survey
 def scan_survey(survey_path):
 
-    from Survey import SurveyCreateSurvey, SurveyAddPerson
+    from Survey import SurveyCreateSurvey, SurveyAddPerson, SurveyCreateIntAr, SurveySetIntArIdxVal
 
     Survey = SurveyCreateSurvey()
 
@@ -113,10 +113,10 @@ def scan_survey(survey_path):
         gender = True if line_char_params[3] == "Man" else False
 
         # send array and details to survey
-        score_arr = Survey.SurveyCreateIntAr(len(scores))
+        score_arr = SurveyCreateIntAr(len(scores))
 
         for index, score in enumerate(scores):
-            Survey.SurveySetIntArIdxVal(score_arr, index, score)
+            SurveySetIntArIdxVal(score_arr, index, score)
 
         if line_char_params[1] == "Vegan":
             eating_habits = 0
