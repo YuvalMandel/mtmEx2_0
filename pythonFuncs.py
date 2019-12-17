@@ -106,7 +106,6 @@ def scan_survey(survey_path):
     for line in survey_file:
 
         line_char_params = line.split()
-        print("line char params:", line_char_params)
         id = int(line_char_params[0])
         age = int(line_char_params[2])
         scores = [int(i) for i in line_char_params[4:]]
@@ -124,8 +123,6 @@ def scan_survey(survey_path):
             eating_habits = 1
         else:
             eating_habits = 2
-
-        print("scores", scores)
 
         SurveyAddPerson(Survey, id, age, gender, eating_habits, score_arr)
 
