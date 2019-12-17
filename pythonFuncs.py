@@ -1,5 +1,3 @@
-
-
 # Filters a survey and prints to screen the corrected answers:
 # old_survey_path: The path to the unfiltered survey
 def correct_myfile(old_survey_path):
@@ -97,8 +95,24 @@ def add_line_to_array(line_array, line):
 # Returns a new Survey item with the data of a new survey file:
 # survey_path: The path to the survey
 def scan_survey(survey_path):
-    # TODO
-    pass
+
+    from Survey import SurveyCreateSurvey, SurveyAddPerson
+
+    Survey = SurveyCreateSurvey()
+
+    # Go through each line.
+    for line in survey_path:
+
+        line_char_params = line.split()
+
+        SurveyAddPerson(Survey,
+                        line_char_params[0],
+                        line_char_params[2],
+                        line_char_params[3],
+                        line_char_params[1],
+                        line_char_params[4:8])
+
+    return Survey
 
 
 # Prints a python list containing the number of votes for each rating of a group according to the arguments
