@@ -105,6 +105,8 @@ def scan_survey(survey_path):
 
         line_char_params = line.split()
 
+        print("line char params:", line_char_params)
+
         SurveyAddPerson(Survey,
                         line_char_params[0],
                         line_char_params[2],
