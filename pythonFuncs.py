@@ -106,16 +106,17 @@ def scan_survey(survey_path):
     for line in survey_file:
 
         line_char_params = line.split()
-
-        id = int(line_char_params[0])
-
-        age = int(line_char_params[2])
-
         print("line char params:", line_char_params)
-
+        id = int(line_char_params[0])
+        age = int(line_char_params[2])
         scores = [int(i) for i in line_char_params[4:]]
-
         gender = True if line_char_params[3] == "Man" else False
+
+        # send array and details to survey
+        score_arr = Survey.SurveyCreateIntAr(len(scores))
+
+        for index, score in enumerate(scores):
+            Survey.SurveySetIntArIdxVal(score_arr, index, score)
 
         if line_char_params[1] == "Vegan":
             eating_habits = 0
@@ -126,12 +127,7 @@ def scan_survey(survey_path):
 
         print("scores", scores)
 
-        SurveyAddPerson(Survey,
-                        id,
-                        age,
-                        gender,
-                        eating_habits,
-                        scores)
+        SurveyAddPerson(Survey, id, age, gender, eating_habits, score_arr)
 
     return Survey
 
