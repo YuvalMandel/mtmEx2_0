@@ -147,6 +147,8 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
 
     output_list = []
 
+    eating_habits_to_transfer = 0
+
     if eating_habits == "Vegan":
         eating_habits_to_transfer = 0
 
@@ -157,7 +159,7 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
         eating_habits_to_transfer = 2
 
     else:
-        print("eating_habits:", eating_habits)
+        print("bad eating_habits:", eating_habits)
 
     if gender == "Woman":
         gender_to_transfer = False
