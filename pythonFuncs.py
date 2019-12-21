@@ -153,8 +153,11 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
     elif eating_habits == "Vegaterian":
         eating_habits_to_transfer = 1
 
+    elif eating_habits == "Omnivore":
+        eating_habits_to_transfer = 2
+
     else:
-        eating_heating_habits_to_transfer = 2
+        print("eating_habits:", eating_habits)
 
     if gender == "Woman":
         gender_to_transfer = False
@@ -163,7 +166,7 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
         gender_to_transfer = True
 
     # get array according to Query
-    int_arr = SurveyQuerySurvey(s, choc_type, gender_to_transfer, min_age, max_age, eating_heating_habits_to_transfer)
+    int_arr = SurveyQuerySurvey(s, choc_type, gender_to_transfer, min_age, max_age, eating_habits_to_transfer)
 
     for i in range(10):
 
