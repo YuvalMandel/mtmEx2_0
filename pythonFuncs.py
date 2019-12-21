@@ -152,7 +152,7 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
     if eating_habits == "Vegan":
         eating_habits_to_transfer = 0
 
-    elif eating_habits == "Vegaterian":
+    elif eating_habits == "Vegetarian":
         eating_habits_to_transfer = 1
 
     elif eating_habits == "Omnivore":
