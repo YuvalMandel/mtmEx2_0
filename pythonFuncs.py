@@ -101,7 +101,7 @@ def add_line_to_array(line_array, line):
 # survey_path: The path to the survey
 def scan_survey(survey_path):
 
-    from Survey import SurveyCreateSurvey, SurveyAddPerson, SurveyCreateIntAr, SurveySetIntArIdxVal
+    from Survey import SurveyCreateSurvey, SurveyAddPerson, SurveyCreateIntAr, SurveySetIntArIdxVal, SurveyDestoryIntAr
 
     Survey = SurveyCreateSurvey()
 
@@ -131,6 +131,8 @@ def scan_survey(survey_path):
 
         SurveyAddPerson(Survey, id, age, gender, eating_habits, score_arr)
 
+        SurveyDestoryIntAr(score_arr)
+
     return Survey
 
 
@@ -143,9 +145,7 @@ def scan_survey(survey_path):
 # eating_habits: the eating habits of the group (string of "Omnivore", "Vegan" or "Vegetarian")
 def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
 
-    from Survey import SurveyQuerySurvey, SurveyGetIntArIdxVal, SurveyDestoryIntAr
-
-    output_list = []
+    from Survey import SurveyQuerySurvey, SurveyGetIntArIdxVal, SurveyQueryDestroy
 
     eating_habits_to_transfer = 2
 
@@ -158,6 +158,9 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
     elif eating_habits == "Omnivore":
         eating_habits_to_transfer = 2
 
+    else:
+        print("Error, illegal eating habit:", eating_habits)
+
     if gender == "Woman":
         gender_to_transfer = False
 
@@ -167,6 +170,8 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
     # get array according to Query
     int_arr = SurveyQuerySurvey(s, choc_type, gender_to_transfer, min_age, max_age, eating_habits_to_transfer)
 
+    output_list = []
+
     for i in range(10):
 
         # translate 'c' array to python list
@@ -174,7 +179,7 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
 
     print(output_list)
 
-    SurveyDestoryIntAr(int_arr)
+    SurveyQueryDestroy(int_arr)
 
 
 # Clears a Survey object data
