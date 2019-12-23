@@ -1,5 +1,6 @@
 # Filters a survey and prints to screen the corrected answers:
 # old_survey_path: The path to the unfiltered survey
+from Survey import SurveyDestoryIntAr
 
 
 def correct_myfile(old_survey_path):
@@ -140,10 +141,9 @@ def scan_survey(survey_path):
 # min_age: the minimum age of the group (a number)
 # max_age: the maximum age of the group (a number)
 # eating_habits: the eating habits of the group (string of "Omnivore", "Vegan" or "Vegetarian")
-
 def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
 
-    from Survey import SurveyQuerySurvey, SurveyGetIntArIdxVal
+    from Survey import SurveyQuerySurvey, SurveyGetIntArIdxVal, SurveyDestoryIntAr
 
     output_list = []
 
@@ -170,10 +170,11 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
     for i in range(10):
 
         # translate 'c' array to python list
-
         output_list.insert(i, SurveyGetIntArIdxVal(int_arr, i))
 
     print(output_list)
+
+    SurveyDestoryIntAr(int_arr)
 
 
 # Clears a Survey object data

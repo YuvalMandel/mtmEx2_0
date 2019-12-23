@@ -1,7 +1,7 @@
 from pythonFuncs import scan_survey, print_info, clear_survey
 
 if __name__ == '__main__':
-    s=scan_survey("survey_guy_corrected")
+    s = scan_survey("survey_guy_corrected")
     print_info(s, 3, "Woman", 39, 50, "Omnivore")
     print_info(s, 3, "Woman", 61, 79, "Omnivore")
     print_info(s, 1, "Man", 17, 17, "Vegan")
