@@ -165,7 +165,7 @@ def return_eating_habits_int(eating_habits_char):
 # eating_habits: the eating habits of the group (string of "Omnivore", "Vegan" or "Vegetarian")
 def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
 
-    from Survey import SurveyQuerySurvey, SurveyGetIntArIdxVal
+    from Survey import SurveyQuerySurvey, SurveyGetIntArIdxVal, SurveyQueryDestroy
 
     eating_habits_to_transfer = return_eating_habits_int(eating_habits)
 
@@ -183,8 +183,7 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
 
     print(output_list)
 
-    # SurveyQueryDestroy(int_arr)
-    # SurveyDestoryIntAr(int_arr)
+    SurveyQueryDestroy(int_arr)
 
 
 # Clears a Survey object data
