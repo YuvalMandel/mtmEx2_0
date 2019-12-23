@@ -1,10 +1,24 @@
 # Filters a survey and prints to screen the corrected answers:
 # old_survey_path: The path to the unfiltered survey
-from Survey import SurveyDestoryIntAr
+ID_INDEX = 0
+EH_INDEX = 1
+AGE_INDEX = 2
+GENDER_INDEX = 3
+SCORES_INDEX = 4
+ID_LEGAL_LENGTH = 8
+AGE_LEGAL_MAX = 100
+AGE_LEGAL_MIN = 10
+SCORE_LEGAL_MAX = 10
+SCORE_LEGAL_MIN = 1
+MAN_BOOL_VAL = True
+WOMAN_BOOL_VAL = False
+VEGAN_INT_VAL = 0
+VEGETARIAN_INT_VAL = 1
+OMNIVORE_INT_VAL = 2
+QUERY_INT_LENGTH = 10
 
 
 def correct_myfile(old_survey_path):
-
 
     # Open a file
     old_survey_file = open(old_survey_path, "r")
@@ -29,13 +43,13 @@ def check_good_line(line):
 
     line_char_params = line.split()
 
-    scores = line_char_params[4:]
+    scores = line_char_params[SCORES_INDEX:]
 
-    id = line_char_params[0]
+    identification = line_char_params[ID_INDEX]
 
-    age = line_char_params[2]
+    age = line_char_params[AGE_INDEX]
 
-    if check_id(id) and check_age(age) and check_scores(scores):
+    if check_id(identification) and check_age(age) and check_scores(scores):
 
         return True
 
@@ -45,9 +59,9 @@ def check_good_line(line):
 
 
 # checks the user id
-def check_id(id):
+def check_id(identification):
 
-    if len(id) is not 8 or id.isdigit() is not True:
+    if len(identification) is not ID_LEGAL_LENGTH or identification.isdigit() is not True:
 
         return False
 
@@ -59,7 +73,7 @@ def check_id(id):
 # checks the user age
 def check_age(age):
 
-    if 100 >= int(age) >= 10:
+    if AGE_LEGAL_MAX >= int(age) >= AGE_LEGAL_MIN:
 
         return True
 
@@ -73,7 +87,7 @@ def check_scores(scores):
 
     for score in scores:
 
-        if not 10 >= int(score) >= 1:
+        if not SCORE_LEGAL_MAX >= int(score) >= SCORE_LEGAL_MIN:
 
             return False
 
@@ -82,13 +96,13 @@ def check_scores(scores):
 
 def add_line_to_array(line_array, line):
 
-    id = line.split()[0]
+    identification = line.split()[0]
 
     for current_line in line_array:
 
-        current_line_id = current_line.split()[0]
+        current_line_id = current_line.split()[ID_INDEX]
 
-        if id == current_line_id:
+        if identification == current_line_id:
 
             line_array.remove(current_line)
 
@@ -103,7 +117,7 @@ def scan_survey(survey_path):
 
     from Survey import SurveyCreateSurvey, SurveyAddPerson, SurveyCreateIntAr, SurveySetIntArIdxVal, SurveyDestoryIntAr
 
-    Survey = SurveyCreateSurvey()
+    survey = SurveyCreateSurvey()
 
     survey_file = open(survey_path, "r")
 
@@ -111,10 +125,10 @@ def scan_survey(survey_path):
     for line in survey_file:
 
         line_char_params = line.split()
-        id = int(line_char_params[0])
-        age = int(line_char_params[2])
-        scores = [int(i) for i in line_char_params[4:]]
-        gender = True if line_char_params[3] == "Man" else False
+        identification = int(line_char_params[ID_INDEX])
+        age = int(line_char_params[AGE_INDEX])
+        scores = [int(i) for i in line_char_params[SCORES_INDEX:]]
+        gender = True if line_char_params[GENDER_INDEX] == "Man" else False
 
         # send array and details to survey
         score_arr = SurveyCreateIntAr(len(scores))
@@ -122,18 +136,24 @@ def scan_survey(survey_path):
         for index, score in enumerate(scores):
             SurveySetIntArIdxVal(score_arr, index, score)
 
-        if line_char_params[1] == "Vegan":
-            eating_habits = 0
-        elif line_char_params[1] == "Vegetarian":
-            eating_habits = 1
-        else:
-            eating_habits = 2
+        eating_habits = return_eating_habits_int(line_char_params[EH_INDEX])
 
-        SurveyAddPerson(Survey, id, age, gender, eating_habits, score_arr)
+        SurveyAddPerson(survey, identification, age, gender, eating_habits, score_arr)
 
         SurveyDestoryIntAr(score_arr)
 
-    return Survey
+    return survey
+
+
+def return_eating_habits_int(eating_habits_char):
+    if eating_habits_char == "Vegan":
+        eating_habits = VEGAN_INT_VAL
+    elif eating_habits_char == "Vegetarian":
+        eating_habits = VEGETARIAN_INT_VAL
+    else:
+        eating_habits = OMNIVORE_INT_VAL
+
+    return eating_habits
 
 
 # Prints a python list containing the number of votes for each rating of a group according to the arguments
@@ -147,32 +167,16 @@ def print_info(s, choc_type, gender, min_age, max_age, eating_habits):
 
     from Survey import SurveyQuerySurvey, SurveyGetIntArIdxVal, SurveyQueryDestroy
 
-    eating_habits_to_transfer = 2
+    eating_habits_to_transfer = return_eating_habits_int(eating_habits)
 
-    if eating_habits == "Vegan":
-        eating_habits_to_transfer = 0
-
-    elif eating_habits == "Vegetarian":
-        eating_habits_to_transfer = 1
-
-    elif eating_habits == "Omnivore":
-        eating_habits_to_transfer = 2
-
-    else:
-        print("Error, illegal eating habit:", eating_habits)
-
-    if gender == "Woman":
-        gender_to_transfer = False
-
-    else:
-        gender_to_transfer = True
+    gender_to_transfer = MAN_BOOL_VAL if gender == "Man" else WOMAN_BOOL_VAL
 
     # get array according to Query
     int_arr = SurveyQuerySurvey(s, choc_type, gender_to_transfer, min_age, max_age, eating_habits_to_transfer)
 
     output_list = []
 
-    for i in range(10):
+    for i in range(QUERY_INT_LENGTH):
 
         # translate 'c' array to python list
         output_list.insert(i, SurveyGetIntArIdxVal(int_arr, i))
