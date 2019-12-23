@@ -124,7 +124,7 @@ def scan_survey(survey_path):
 
         if line_char_params[1] == "Vegan":
             eating_habits = 0
-        elif line_char_params[1] == "Vegaterian":
+        elif line_char_params[1] == "Vegetarian":
             eating_habits = 1
         else:
             eating_habits = 2
