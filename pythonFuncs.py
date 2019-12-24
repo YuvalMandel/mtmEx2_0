@@ -1,5 +1,4 @@
-# Filters a survey and prints to screen the corrected answers:
-# old_survey_path: The path to the unfiltered survey
+# Parameters
 ID_INDEX = 0
 EH_INDEX = 1
 AGE_INDEX = 2
@@ -18,6 +17,8 @@ OMNIVORE_INT_VAL = 2
 QUERY_INT_LENGTH = 10
 
 
+# Filters a survey and prints to screen the corrected answers:
+# old_survey_path: The path to the unfiltered survey
 def correct_myfile(old_survey_path):
 
     # Open a file
@@ -96,7 +97,7 @@ def check_scores(scores):
 
 def add_line_to_array(line_array, line):
 
-    identification = line.split()[0]
+    identification = line.split()[ID_INDEX]
 
     for current_line in line_array:
 
